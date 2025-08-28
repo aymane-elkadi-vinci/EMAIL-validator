@@ -19,4 +19,5 @@ This project implements an EmailValidator class which allows you to check the va
 
 # Launch the code : 
 npm install
+
 npm test
