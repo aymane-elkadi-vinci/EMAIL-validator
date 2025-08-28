@@ -2,6 +2,7 @@
 
 # Author
 EL KADI AYMANE
+
 aymane.elkadi@sudent.vinci.be
 
 # Link
@@ -17,4 +18,5 @@ This project implements an EmailValidator class which allows you to check the va
 - Validation is case-insensitive for the domain name.
 
 # Launch the code : 
+npm install
 npm test
