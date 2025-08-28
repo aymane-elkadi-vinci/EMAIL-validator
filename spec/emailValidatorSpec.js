@@ -1,39 +1,48 @@
 import { isValidEmail } from "../src/emailValidator.js";
 
 describe("Email validator", () => {
-  it("accepte une adresse valide simple", () => {
+  it("accepts a simple valid address", () => {
+    // Accepts a valid email with local part, '@', and domain
     expect(isValidEmail("alice@example.com")).toBeTrue();
   });
 
-  it("refuse si pas d'@", () => {
+  it("rejects an address without @", () => {
+    // Rejects if '@' is missing
     expect(isValidEmail("alice.example.com")).toBeFalse();
   });
 
-  it("refuse s'il y a plusieurs @", () => {
-    // Par prudence, on exige exactement un seul @
+  it("rejects an address with multiple @", () => {
+    // Rejects if there are multiple '@' characters
+    // (must contain exactly one '@')
     expect(isValidEmail("a@b@c.com")).toBeFalse();
   });
 
-  it("refuse s'il y a un espace", () => {
+  it("rejects an address with spaces", () => {
+    // Rejects if the email contains spaces
     expect(isValidEmail("alice @example.com")).toBeFalse();
     expect(isValidEmail("alice@ example.com")).toBeFalse();
     expect(isValidEmail("ali ce@example.com")).toBeFalse();
   });
 
-  it("refuse si rien avant ou après @", () => {
-    expect(isValidEmail("@example.com")).toBeFalse();
-    expect(isValidEmail("alice@")).toBeFalse();     
+  it("rejects if there is nothing before or after @", () => {
+    // Rejects if the local part or domain part is missing
+    expect(isValidEmail("@example.com")).toBeFalse();   // nothing before '@'
+    expect(isValidEmail("alice@")).toBeFalse();         // nothing after '@'
   });
 
-  it("refuse si le domaine n'a pas de point", () => {
+  it("rejects if the domain has no dot", () => {
+    // Rejects if the domain does not contain any '.'
     expect(isValidEmail("alice@example")).toBeFalse();
   });
 
-  it("refuse si le domaine se termine par un point", () => {
+  it("rejects if the domain ends with a dot", () => {
+    // Rejects if the domain ends with '.'
     expect(isValidEmail("alice@example.")).toBeFalse();
   });
 
-  it("accepte un domaine avec au moins un point (non final)", () => {
+  it("accepts a domain with at least one non-final dot", () => {
+    // Accepts if the domain contains at least one '.' 
+    // that is not the last character
     expect(isValidEmail("bob@mail.co")).toBeTrue();
     expect(isValidEmail("carol@sub.domain.org")).toBeTrue();
   });

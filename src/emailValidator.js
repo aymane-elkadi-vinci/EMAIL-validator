@@ -1,22 +1,22 @@
-// src/emailValidator.js
 export function isValidEmail(email) {
-  // Type & espaces
+  // Check type and spaces
   if (typeof email !== "string") return false;
   if (email.includes(" ")) return false;
 
-  // Doit contenir exactement un "@"
+  // Must contain exactly one '@'
   const atCount = (email.match(/@/g) || []).length;
   if (atCount !== 1) return false;
 
+  // Split into local part (before '@') and domain part (after '@')
   const [local, domain] = email.split("@");
 
-  // Texte avant et après "@"
+  // Local and domain parts must not be empty
   if (!local || !domain) return false;
 
-  // Domaine doit contenir au moins un "." et ne pas se terminer par "."
+  // Domain must contain at least one '.' and not end with '.'
   if (!domain.includes(".")) return false;
   if (domain.endsWith(".")) return false;
 
-  // Tout passe
+  // If all checks pass, the email is valid
   return true;
 }
